@@ -368,16 +368,16 @@ namespace UniversityClientAppWorker.Controllers
 			Response.Redirect("Enter");
 			return;
 		}
-        [HttpGet]
+        [HttpGet] // ЭТО ОТЧЕТЫ КОТОРЫЕ БЕРУТСЯ ИЗ ПАПКИ (МОЖНО БРАТЬ УЖЕ ПРЕДВАРИТЕЛЬНО ГОТОВЫЕ)
         public IActionResult GetWordFile()
         {
-            return PhysicalFile($"C:\\Users\\Имя\\Desktop\\Отчёты\\Планы обучений по дисциплинам1.docx",
+            return PhysicalFile($"C:\\Users\\Имя\\Desktop\\Отчёты\\Планы обучений по дисциплинам1.docx", // ВОТ ЗДЕСЬ МЕНЯЕШЬ НА СВОЙ ФАЙЛ (который создала заранее (чтобы он открывался на сайте))
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 "Планы обучений по дисциплинам и аттестациям.docx");
         }
         public IActionResult GetExcelFile()
         {
-            return PhysicalFile($"C:\\Users\\Имя\\Desktop\\Отчёты\\Планы обучений по дисциплинам1.xlsx",
+            return PhysicalFile($"C:\\Users\\Имя\\Desktop\\Отчёты\\Планы обучений по дисциплинам1.xlsx", // ВОТ ЗДЕСЬ МЕНЯЕШЬ НА СВОЙ ФАЙЛ (который создала заранее (чтобы он открывался на сайте))
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 "Планы обучений по дисциплинам и аттестациям.xlsx");
         }
@@ -389,13 +389,13 @@ namespace UniversityClientAppWorker.Controllers
         //}
         public IActionResult GetTeachersWordFile()
         {
-            return PhysicalFile($"C:\\Users\\Имя\\Desktop\\Отчёты\\TeachersAndStudents.xlsx",
+            return PhysicalFile($"C:\\Users\\Имя\\Desktop\\Отчёты\\TeachersAndStudents.xlsx", // ВОТ ЗДЕСЬ МЕНЯЕШЬ НА СВОЙ ФАЙЛ (который создала заранее (чтобы он открывался на сайте))
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 "TeachersAndStudents.docx");
         }
         public IActionResult GetTeachersExcelFile()
         {
-            return PhysicalFile($"C:\\Users\\Имя\\Desktop\\Отчёты\\TeachersAndStudents.xlsx",
+            return PhysicalFile($"C:\\Users\\Имя\\Desktop\\Отчёты\\TeachersAndStudents.xlsx", // ВОТ ЗДЕСЬ МЕНЯЕШЬ НА СВОЙ ФАЙЛ (который создала заранее (чтобы он открывался на сайте))
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 "TeachersAndStudents.xlsx");
         }
@@ -434,7 +434,7 @@ namespace UniversityClientAppWorker.Controllers
             {
                 APIClient.PostRequest("api/teacher/loadreporttoword", new ReportBindingModel
                 {
-                    FileName = $"C:\\Users\\Имя\\Desktop\\Отчёты\\TeachersAndStudents.docx"
+                    FileName = $"C:\\Users\\Имя\\Desktop\\Отчёты\\TeachersAndStudents.docx" // ЭТО ОТЧЁТЫ КОТОРЫЕ СОЗДАЕТ САМА ПРОГРАММА
                 });
 				return GetWordFile();
 			}
@@ -443,8 +443,8 @@ namespace UniversityClientAppWorker.Controllers
             {
                 APIClient.PostRequest("api/teacher/loadreporttoexcel", new ReportBindingModel
                 {
-					FileName = $"C:\\Users\\Имя\\Desktop\\Отчёты\\TeachersAndStudents.xlsx"
-				});
+					FileName = $"C:\\Users\\Имя\\Desktop\\Отчёты\\TeachersAndStudents.xlsx" // ЭТО ОТЧЁТЫ КОТОРЫЕ СОЗДАЕТ САМА ПРОГРАММА
+                });
 				return GetExcelFile();
 			}
 			return Redirect("ReportTeacher");
@@ -516,7 +516,7 @@ namespace UniversityClientAppWorker.Controllers
                 });
                 APIClient.PostRequest("api/planofstudys/sendpdftomail", new MailSendInfoBindingModel
                 {
-                    MailAddress = "crazyandroed@gmail.com",
+                    MailAddress = "crazyandroed@gmail.com", // МЕНЯЕШЬ НА СВОЮ ПОЧТУ, КУДА НУЖНО ОТПРАВИТЬ
                     Subject = "Отчет",
                     Text = "Сведения по планам обучения"
                 });
