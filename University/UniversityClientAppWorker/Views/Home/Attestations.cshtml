@@ -1,0 +1,80 @@
+﻿@using UniversityContracts.ViewModels
+@model List<AttestationViewModel>
+@{
+    ViewData["Title"] = "Управление аттестациями";
+}
+
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+
+<form asp-action="CreateAttestation" method="post">
+    <div class="row">
+        <div class="col-4">Форма оценивания:</div>
+        <div class="col-8">
+            <select name="formOfEvaluation" id="formOfEvaluation" class="form-control">
+                <option value="Зачёт">Зачёт</option>
+                <option value="Экзамен">Экзамен</option>
+                <option value="Дифферинцируемый зачёт">Дифферинцируемый зачёт</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Студент:</div>
+        <div class="col-8">
+            <select name="student" id="student" class="form-control" asp-items="@(new SelectList(ViewBag.Students, "Id", "Name"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Оценка:</div>
+        <div class="col-8">
+            <select id="score" name="score" class="form-control" asp-items="@(new SelectList(ViewBag.AttestationScore, "Score"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4 mt-2">
+            <input type="submit" value="Добавить аттестацию" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Форма оценивания</th>
+            <th>Студент</th>
+            <th>Оценка</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var attestation in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => attestation.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => attestation.FormOfEvaluation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => attestation.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => attestation.Score)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-controller="Home" asp-action="InfoAttestation" asp-route-id="@attestation.Id" class="btn btn-warning">Изменить</a>
+                        <form asp-controller="Home" asp-action="DeleteAttestation" method="post">
+                            <input type="hidden" name="id" value="@attestation.Id" />
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

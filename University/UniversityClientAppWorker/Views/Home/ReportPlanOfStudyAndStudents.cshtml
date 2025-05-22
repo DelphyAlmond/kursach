@@ -1,0 +1,62 @@
+﻿@using UniversityContracts.ViewModels
+@model List<ReportPlanOfStudyAndStudentViewModel>
+@{
+    ViewData["Title"] = "Сведения по планам обучения";
+}
+
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4 mt-2">
+            <form method="post">
+                <input type="hidden" name="type" value="pdf" />
+                <input type="submit" value="Отправить в формате Pdf на почту" class="btn btn-secondary" />
+            </form>
+        </div>
+        <div class="col-4 mt-2">
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>План обучения</th>
+                <th>Форма обучения</th>
+                <th>Форма оценивания</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlanOfStudyName)
+                    </td>
+                    <td>
+                        @foreach (var student in item.StudentName)
+                        {
+                            <div>
+                                @Html.DisplayFor(modelItem => student)
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var discipline in item.DisciplineName)
+                        {
+                            <div>
+                                @Html.DisplayFor(modelItem => discipline)
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

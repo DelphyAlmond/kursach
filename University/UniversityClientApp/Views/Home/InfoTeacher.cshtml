@@ -1,0 +1,38 @@
+﻿@using UniversityContracts.ViewModels
+@model TeacherViewModel
+@{
+    ViewData["Title"] = "Преподаватель";
+}
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"] - @Model.Id</h2>
+</div>
+<form asp-action="UpdateTeacher" method="post">
+    <div class="row">
+        <div class="col-4">Имя:</div>
+        <div class="col-8">
+            <input type="text" name="name" id="name" class="form-control" value="@Model.Name" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Учёная степень:</div>
+        <div class="col-8">
+            <input type="text" name="academicDegree" id="academicDegree" class="form-control" value="@Model.AcademicDegree" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Должность:</div>
+        <div class="col-8">
+            <input type="text" name="position" id="position" class="form-control" value="@Model.Position" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4 mt-2">
+            <form asp-action="Teachers">
+                <input type="submit" value="Отмена" class="btn btn-primary" />
+            </form>
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="submit" value="Сохранить" class="btn btn-danger" />
+        </div>
+    </div>
+</form>

@@ -1,0 +1,90 @@
+﻿@using UniversityContracts.ViewModels
+@model List<PlanOfStudyViewModel>
+@{
+    ViewData["Title"] = "Управление планами обучений";
+}
+
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+<div class="btn-group">
+    <form asp-action="ReportPlanOfStudys" method="get">
+        <input type="submit" value="Отчёт по планам обучения" class="btn btn-info" />
+    </form>
+    <form asp-action="ReportPlanOfStudyAndStudents" method="get">
+        <input type="submit" value="Сведения по планам обучения" class="btn btn-secondary" />
+    </form>
+    <a href="https://localhost:7145/Home/Report" class="btn btn-secondary">Сведения по преподавателям</a>
+</div>
+<form asp-action="CreatePlanOfStudy" method="post">
+    <div class="row mt-2">
+        <div class="col-4">Профиль:</div>
+        <div class="col-8">
+            <input type="text" name="profile" id="profile" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Форма обучения:</div>
+        <div class="col-8">
+            <input name="formOfStudy" id="formOfStudy" class="form-control" multiple asp-items="ViewBag.PlanOfStudys"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Преподаватели:</div>
+        <div class="col-8">
+            <div class="scrollable-list">
+            @foreach (var teacher in ViewBag.Teachers)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="teacherIds" value="@teacher.Id" id="student-@teacher.Id">
+                    <label class="form-check-label" for="teacher-@teacher.Id">
+                        @teacher.Name
+                    </label>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4 mt-2">
+            <input type="submit" value="Создать план обучения" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Профиль</th>
+            <th>Форма обучения</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var planOfStudy in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => planOfStudy.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => planOfStudy.Profile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => planOfStudy.FormOfStudy)
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a asp-controller="Home" asp-action="InfoPlanOfStudy" asp-route-id="@planOfStudy.Id" class="btn btn-warning">Изменить</a>
+                            <form asp-controller="Home" asp-action="DeletePlanOfStudy" method="post">
+                                <input type="hidden" name="id" value="@planOfStudy.Id" />
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>

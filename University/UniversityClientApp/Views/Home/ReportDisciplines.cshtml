@@ -1,0 +1,57 @@
+﻿@using UniversityContracts.ViewModels
+@model List<ReportDisciplineViewModel>
+
+<form method="get" action="/Home/ReportDisciplines">
+    <div class="text-center">
+        <h2 class="display-4">Отчёт за период по дисциплинам</h2>
+    </div>
+    <div class="form-group">
+        <label class="mb-3" for="dateFrom">Начало периода:</label>
+        <input type="date" placeholder="Выберите дату начала периода" id="dateFrom" name="dateFrom" />
+    </div>
+    <div class="form-group">
+        <label class="mb-3" for="dateTo">Окончание периода:</label>
+        <input type="date" placeholder="Выберите дату окончания периода" id="dateTo" name="dateTo" />
+    </div>
+    <div class="row">
+        <div class="col-4"><input type="submit" value="Вывести здесь" class="btn btn-primary" /></div>
+    </div>
+    
+</form>
+
+
+<form method="post" action="/Home/ReportDisciplines">
+    <div class="form-group">
+        <label class="mb-3" for="dateFrom">Начало периода:</label>
+        <input type="date" placeholder="Выберите дату начала периода" id="dateFrom" name="dateFrom" />
+    </div>
+    <div class="form-group">
+        <label class="mb-3" for="dateTo">Окончание периода:</label>
+        <input type="date" placeholder="Выберите дату окончания периода" id="dateTo" name="dateTo" />
+    </div>
+	<input type="hidden" name="type" value="pdf" />
+	<input type="submit" value="Отправить в формате Pdf на почту" class="btn btn-primary" />
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table" id="reportTable">
+        <thead>
+            <tr>
+                <th>Название дисциплины</th>
+                <th>Планы обучения</th>
+                <th>Заявления</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DisciplineName</td>
+                    <td>@string.Join(", ", item.PlanOfStudys)</td>
+                    <td>@string.Join(", ", item.Statements)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,78 @@
+﻿@using UniversityContracts.ViewModels
+@model List<StatementViewModel>
+@{
+    ViewData["Title"] = "Управление ведомостями";
+}
+
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">Название:</div>
+        <div class="col-8">
+            <input type="text" name="name" id="name" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Дата:</div>
+        <div class="col-8">
+            <input type="datetime-local" name="date" id="date" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Преподаватель:</div>
+        <div class="col-8">
+            <select id="teacher" name="teacher" class="form-control" asp-items="@(new SelectList(@ViewBag.Teachers,"Id", "Name"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4">
+            <input type="submit" value="Создать ведомость" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Дата</th>
+            <th>Преподаватель</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody>@foreach (var item in Model)
+        {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeacherName)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-controller="Home" asp-action="InfoStatement" asp-route-id="@item.Id" class="btn btn-warning">Изменить</a>
+                        <form asp-controller="Home" asp-action="DeleteStatement" method="post">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </div>
+                </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,42 @@
+﻿@using UniversityContracts.ViewModels
+@model AttestationViewModel
+@{
+    ViewData["Title"] = "Аттестация";
+}
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"] - @Model.Id</h2>
+</div>
+<form asp-action="UpdateAttestation" method="post">
+    <div class="row">
+        <div class="col-4">Форма оценивания:</div>
+        <div class="col-8">
+            <select name="formOfEvaluation" id="formOfEvaluation" class="form-control" value="@Model.FormOfEvaluation">
+                <option value="Зачёт">Зачёт</option>
+                <option value="Экзамен">Экзамен</option>
+                <option value="Дифферинцируемый зачёт">Дифферинцируемый зачёт</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Студент:</div>
+        <div class="col-8">
+            <select name="student" id="student" class="form-control" asp-items="@(new SelectList(ViewBag.Students, "Id", "Name", Model.StudentId))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Оценка:</div>
+        <div class="col-8">
+            <select id="score" name="score" class="form-control" asp-items="@(new SelectList(ViewBag.AttestationScore, "Score"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4 mt-2">
+            <form asp-action="Attestations">
+                <input type="submit" value="Отмена" class="btn btn-primary" />
+            </form>
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="submit" value="Сохранить" class="btn btn-danger" />
+        </div>
+    </div>
+</form>

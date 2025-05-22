@@ -1,0 +1,39 @@
+﻿@using UniversityContracts.ViewModels
+@model StudentViewModel
+@{
+    ViewData["Title"] = "Студент";
+}
+
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"] - @Model.Id</h2>
+</div>
+<form asp-action="UpdateStudent" method="post">
+    <div class="row">
+        <div class="col-4">ФИО:</div>
+        <div class="col-8">
+            <input type="text" name="name" id="name" class="form-control" value="@Model.Name" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">План обучения:</div>
+        <div class="col-8">
+            <select name="planOfStudy" id="planOfStudy" class="form-control" asp-items="@(new SelectList(ViewBag.PlanOfStudys, "Id", "Profile", Model.PlanOfStudyId))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Номер телефона:</div>
+        <div class="col-8">
+            <input id="phoneNumber" name="phoneNumber" class="form-control" value="@Model.PhoneNumber"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4 mt-2">
+            <form asp-action="Students">
+                <input type="submit" value="Отмена" class="btn btn-primary" />
+            </form>
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="submit" value="Сохранить" class="btn btn-danger" />
+        </div>
+    </div>
+</form>

@@ -1,0 +1,56 @@
+﻿@using UniversityContracts.ViewModels
+@model List<ReportTeacherViewModel>
+@{
+    ViewData["Title"] = "Отчёты по преподавателям со студентами";
+}
+
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-8 btn-group"></div>
+        <div class="col-4 mt-2">
+            @* <form method="post"> *@
+            @*     <input type="hidden" name="type" value="docx" /> *@
+            @*     <input type="submit" value="Save in Word" class="btn btn-primary" /> *@
+            @* </form> *@
+
+            <form method="post">
+                <input type="hidden" name="type" value="xlsx" />
+                <input type="submit" value="Save in Excel" class="btn btn-success" />
+            </form>
+        </div>
+        <div class="col-4 mt-2">
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Имя преподавателя</th>
+                <th>Студент</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.TeacherId
+                    </td>
+                    <td>
+                        @item.TeacherName
+                    </td>
+                    <td>
+                        @foreach (var st in item.Students)
+                        {
+                            <div>@st</div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
