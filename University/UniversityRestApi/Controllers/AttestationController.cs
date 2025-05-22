@@ -3,7 +3,6 @@ using UniversityContracts.BindingModels;
 using UniversityContracts.BusinessLogicsContracts;
 using UniversityContracts.SearchModels;
 using UniversityContracts.ViewModels;
-using UniversityDataModels.Enums;
 
 namespace UniversityRestApi.Controllers
 {
